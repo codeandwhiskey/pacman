@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <delete file="src/main/webapp/resources/user/pac-man-servers.zip"/>
+  <zip update="true" excludes="src/main/java/com/codenjoy/dojo/pac-man/client/ai/*,                                                src/test/java/com/codenjoy/dojo/pac-man/client/ai/*" basedir="" includes="src/main/java/com/codenjoy/dojo/pac-man/client/*.java,                                                src/main/java/com/codenjoy/dojo/pac-man/model/Elements.java,                                                src/test/java/com/codenjoy/dojo/pac-man/client/*.java,                                                pom.xml" destfile="src/main/webapp/resources/user/pac-man-servers.zip"/>
+</target>
+</project>
