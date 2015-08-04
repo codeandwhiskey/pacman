@@ -1,6 +1,5 @@
 package com.codenjoy.dojo.pacman.model;
 
-import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.services.PointImpl;
 import com.codenjoy.dojo.services.State;
 
@@ -19,6 +18,6 @@ public class Bomb extends PointImpl implements State<Elements, Player> {
 
     @Override
     public Elements state(Player player, Object... alsoAtPoint) {
-        return Elements.COOKIE;//was BOMB - TODO
+        return Elements./*HOLLAND_*/COOKIE;//was BOMB - TODO
     }
 }

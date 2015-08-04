@@ -78,7 +78,6 @@ public class CodeAndWhiskeySolver implements Solver<Board> {
         LocalGameRunner.run(new GameRunner(),
                 new CodeAndWhiskeySolver(new RandomDice()),
                 new Board());
-//        start(WebSocketRunner.DEFAULT_USER, WebSocketRunner.Host.LOCAL);
     }
 
     public static void start(String name, WebSocketRunner.Host server) {

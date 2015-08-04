@@ -4,11 +4,6 @@ import com.codenjoy.dojo.client.AbstractBoard;
 import com.codenjoy.dojo.pacman.model.Elements;
 import com.codenjoy.dojo.services.Point;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
-import static com.codenjoy.dojo.services.PointImpl.pt;
 
 /**
  * Класс, обрабатывающий строковое представление доски.
@@ -29,6 +24,10 @@ public class Board extends AbstractBoard<Elements> {
     public Point getMe() {
         return get(Elements.DEAD_HERO,
                 Elements.HERO).get(0);
+    }
+    
+    public Point getCasperPoint() {
+        return (Point) get(Elements.CASPER, Elements.HERO).get(0);
     }
 
     public boolean isGameOver() {

@@ -21,40 +21,18 @@ public class GameRunner implements GameType {
     private final Level level;
     private Pacman game;
 
+   
     public GameRunner() {
         settings = new SettingsImpl();
         new Scores(0, settings);
         level = new LevelImpl(
-                "☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼••••••••••••••••••••••••••••☼" +
-                "☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼☼");
+                "☼☼☼☼☼☼" +
+                "☼....☼" +
+                "☼....☼" +
+                "☼....☼" +
+                "☼...#☼" +
+                "☼☼☼☼☼☼");
+       
     }
 
     private Pacman newGame() {
@@ -70,10 +48,12 @@ public class GameRunner implements GameType {
     public Game newGame(EventListener listener, PrinterFactory factory) {
         if (!SINGLE || game == null) {
             game = newGame();
+
         }
 
         Game game = new Single(this.game, listener, factory);
         game.newGame();
+        
         return game;
     }
 
@@ -84,7 +64,7 @@ public class GameRunner implements GameType {
 
     @Override
     public String name() {
-        return "sample";
+        return "pacman";
     }
 
     @Override
@@ -106,4 +86,5 @@ public class GameRunner implements GameType {
     public void newAI(String aiName) {
     	CodeAndWhiskeySolver.start(aiName, WebSocketRunner.Host.REMOTE);
     }
+
 }

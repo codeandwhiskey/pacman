@@ -17,4 +17,8 @@ public interface Level {
     List<Hero> getHero();
 
     List<Cookie> getCookie();
+	
+	 List<HollandCookie> getHollandCookie();
+
+	Casper getCasper();
 }

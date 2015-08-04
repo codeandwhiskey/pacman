@@ -6,7 +6,9 @@ import com.codenjoy.dojo.pacman.services.Events;
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.services.EventListener;
 import com.codenjoy.dojo.services.PrinterFactoryImpl;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.stubbing.OngoingStubbing;
 
@@ -29,6 +31,7 @@ public class PacmanTest {
     private EventListener listener;
     private Player player;
     private PrinterFactory printer = new PrinterFactoryImpl();
+    private Casper casper;
 
     @Before
     public void setup() {
@@ -47,6 +50,7 @@ public class PacmanTest {
         Hero hero = level.getHero().get(0);
 
         game = new Pacman(level, dice);
+        casper = new Casper(1,1);
         listener = mock(EventListener.class);
         player = new Player(listener);
         game.newGame(player);
@@ -68,7 +72,7 @@ public class PacmanTest {
 				"☼.....☼" +
 				"☼..☺..☼" +
 				"☼.....☼" +
-				"☼.....☼" +
+				"☼&....☼" +
 				"☼☼☼☼☼☼☼");
 
         assertE("☼☼☼☼☼☼☼" +
@@ -76,7 +80,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼..☺..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
     }
 
@@ -88,7 +92,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼..☺..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.left();
@@ -99,7 +103,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.☺ ..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
     }
     
@@ -111,7 +115,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼..☺..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.right();
@@ -122,7 +126,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.. ☺.☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
     }
      
@@ -134,7 +138,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼..☺..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.up();
@@ -145,7 +149,7 @@ public class PacmanTest {
                 "☼..☺..☼" +
                 "☼.. ..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
     }
     
@@ -157,7 +161,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼..☺..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.down();
@@ -168,7 +172,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.. ..☼" +
                 "☼..☺..☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
     }
     
@@ -180,7 +184,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼..☺..☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.down();
@@ -191,7 +195,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.. ..☼" +
                 "☼..☺..☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
         
         hero.down();
@@ -202,10 +206,10 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.. ..☼" +
                 "☼.. ..☼" +
-                "☼..☺..☼" +
+                "☼&.☺..☼" +
                 "☼☼☼☼☼☼☼");
     }
-    
+
     @Test
     public void shouldWalkOnWall() {
         givenFl("☼☼☼☼☼☼☼" +
@@ -213,7 +217,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.....☼" +
                 "☼.....☼" +
-                "☼....☺☼" +
+                "☼&...☺☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.down();
@@ -227,10 +231,10 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.....☼" +
                 "☼.....☼" +
-                "☼....☺☼" +
+                "☼&...☺☼" +
                 "☼☼☼☼☼☼☼");  
     }
-    
+
     @Test
     public void shouldWalkOnWall2() {
         givenFl("☼☼☼☼☼☼☼" +
@@ -238,7 +242,7 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.....☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");
 
         hero.up();
@@ -252,7 +256,104 @@ public class PacmanTest {
                 "☼.....☼" +
                 "☼.....☼" +
                 "☼.....☼" +
-                "☼.....☼" +
+                "☼&....☼" +
                 "☼☼☼☼☼☼☼");  
+    }
+    //Casper add
+    @Test
+    public void shouldAddCasper() {
+        givenFl("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+       
+        game.tick();
+
+        assertE("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+    }    
+    //Casper move on the wall
+    @Test
+    public void casperShouldWalkOnWall() {
+        givenFl("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+        casper.move(2,1);
+        game.tick();
+
+        assertE("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+    }    
+
+    //Casper move on right
+    @Test
+    public void shouldMoveCasperOnRight() {
+        givenFl("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+        
+        casper.move(1, 2);
+        game.tick();
+
+        assertE("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼.&...☼" +
+                "☼☼☼☼☼☼☼");
+        
+        game.tick();
+
+        assertE("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+        
+        game.tick();
+
+        assertE("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..☺..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+        
+        game.tick();
+
+        assertE("☼☼☼☼☼☼☼" +
+                "☼.....☼" +
+                "☼.....☼" +
+                "☼..X..☼" +
+                "☼.....☼" +
+                "☼&....☼" +
+                "☼☼☼☼☼☼☼");
+        
+        assertFalse(hero.isAlive());
     }
 }

@@ -45,6 +45,17 @@ public class LevelImpl implements Level {
 
         return result;
     }
+    
+    @Override
+    public List<HollandCookie> getHollandCookie() {
+        List<HollandCookie> result = new LinkedList<HollandCookie>();
+
+        for (Point pt : getPointsOf(Elements.HOLLAND_COOKIE)) {
+            result.add(new HollandCookie(pt));
+        }
+
+        return result;
+    }
 
     @Override
     public List<Wall> getWalls() {
@@ -55,6 +66,15 @@ public class LevelImpl implements Level {
         }
 
         return result;
+    }
+    
+    @Override
+    public Casper getCasper() {
+    	for (Point pt : getPointsOf(Elements.CASPER)) {       
+    		return new Casper(pt);
+        }
+        
+        return null;
     }
 
     private List<Point> getPointsOf(Elements element) {

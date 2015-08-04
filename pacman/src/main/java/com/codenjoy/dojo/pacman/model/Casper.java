@@ -2,11 +2,30 @@ package com.codenjoy.dojo.pacman.model;
 
 import com.codenjoy.dojo.services.*;
 /*
-*//**
+/**
  * Это реализация привидения.
  * 
- *//*
-public class Casper extends PointImpl implements Tickable, State<Elements, Player> {
+ */
+public class Casper /*extends PointImpl implements Tickable, State<Elements, Player> */extends PointImpl implements State<Elements, Player>{
+	
+    public Casper(int x, int y) {
+        super(x, y);
+    }
+    
+    
+
+    public Casper(Point point) {
+        super(point);
+    }
+
+    @Override
+    public Elements state(Player player, Object... alsoAtPoint) {
+        return Elements.CASPER;
+    }
+    /*@Override
+    public void move(int x, int y){
+    	
+    }
 
     private Field field;
     private boolean alive;
@@ -14,42 +33,13 @@ public class Casper extends PointImpl implements Tickable, State<Elements, Playe
 
     public Casper(Point xy) {
         super(xy);
-        direction = null;
+        direction = getDirection();
         alive = true;
     }
 
     public void init(Field field) {
         this.field = field;
     }
-
-    
-    public void down() {
-        if (!alive) return;
-
-        direction = Direction.DOWN;
-    }
-
-    
-    public void up() {
-        if (!alive) return;
-
-        direction = Direction.UP;
-    }
-
-    
-    public void left() {
-        if (!alive) return;
-
-        direction = Direction.LEFT;
-    }
-
-   
-    public void right() {
-        if (!alive) return;
-
-        direction = Direction.RIGHT;
-    }
-
 
     public Direction getDirection() {
         return direction;
@@ -73,18 +63,17 @@ public class Casper extends PointImpl implements Tickable, State<Elements, Playe
     public boolean isAlive() {
         return alive;
     }
-
+    
     @Override
     public Elements state(Player player, Object... alsoAtPoint) {
         if (!isAlive()) {
             return Elements.DEAD_HERO;
-        }
-
-        if (this == casper.getCasper()) {
-            return Elements.HERO;
         } else {
-            return Elements.OTHER_HERO;
-        }
+
+       // if (this == player.getCasper()) {
+            return Elements.CASPER;
+        }*/
+        //}
+		//return null;
     }
-}
-*/
+

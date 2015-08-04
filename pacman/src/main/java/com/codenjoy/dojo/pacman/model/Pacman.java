@@ -16,8 +16,11 @@ public class Pacman implements Tickable, Field {
 
     private List<Wall> walls;
     private List<Cookie> cookie;
+    private List<HollandCookie> hollandCookie;
 
     private List<Player> players;
+    //private List<Ghost> ghosts;
+    private Casper casper;
 
     private final int size;
     private Dice dice;
@@ -26,8 +29,11 @@ public class Pacman implements Tickable, Field {
         this.dice = dice;
         walls = level.getWalls();
         cookie = level.getCookie();
+        hollandCookie = level.getHollandCookie();
         size = level.getSize();
+        casper = level.getCasper();
         players = new LinkedList<Player>();
+       // ghosts = new LinkedList<Ghost>();
     }
 
     /**
@@ -39,14 +45,16 @@ public class Pacman implements Tickable, Field {
             Hero hero = player.getHero();
 
             hero.tick();
+            
 
             if (cookie.contains(hero)) {
                 cookie.remove(hero);
                 player.event(Events.WIN);
 
-                Point pos = getFreeRandom();
             }
         }
+       
+ 
 
         for (Player player : players) {
             Hero hero = player.getHero();
@@ -88,12 +96,17 @@ public class Pacman implements Tickable, Field {
     public boolean isFree(int x, int y) {
         Point pt = PointImpl.pt(x, y);
 
-        return  !walls.contains(pt) &&
+        return  !hollandCookie.contains(pt) &&
+        		!walls.contains(pt) &&
         		!getHeroes().contains(pt);
     }
 
     public List<Cookie> getCookie() {
         return cookie;
+    }
+    
+    public List<HollandCookie> getHollandCookie() {
+        return hollandCookie;
     }
 
     public List<Hero> getHeroes() {
@@ -105,10 +118,12 @@ public class Pacman implements Tickable, Field {
     }
 
     public void newGame(Player player) {
-        if (!players.contains(player)) {
+        if (!players.contains(player) ) {
             players.add(player);
         }
         player.newHero(this);
+        
+     
     }
 
     public void remove(Player player) {
@@ -133,9 +148,26 @@ public class Pacman implements Tickable, Field {
                 List<Point> result = new LinkedList<Point>();
                 result.addAll(Pacman.this.getWalls());
                 result.addAll(Pacman.this.getHeroes());
+                result.add(Pacman.this.addCasper());
                 result.addAll(Pacman.this.getCookie());
+                result.addAll(Pacman.this.getHollandCookie());
+                
                 return result;
             }
         };
     }
+
+
+	public Point addCasper() {
+		
+		Point pos = PointImpl.pt(1,1);
+		
+		if (cookie.contains(pos)) {
+            cookie.remove(pos);
+            }
+        return casper = new Casper(pos);
+		
+	}
+	
+	
 }

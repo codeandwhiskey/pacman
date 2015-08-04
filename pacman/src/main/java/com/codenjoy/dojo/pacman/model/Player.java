@@ -13,6 +13,7 @@ public class Player {
     private int maxScore;
     private int score;
     Hero hero;
+    Casper casper;
 
     /**
      * @param listener Это шпийон от фреймоврка. Ты должен все ивенты которые касаются конкретного пользователя сормить ему.
@@ -72,5 +73,6 @@ public class Player {
         hero = new Hero(pt);
         hero.init(field);
     }
+    
 
 }
