@@ -1,5 +1,6 @@
 package com.codenjoy.dojo.pacman.model;
 
+import com.codenjoy.dojo.pacman.model.Casper;
 import com.codenjoy.dojo.services.Point;
 
 /**

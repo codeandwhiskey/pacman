@@ -1,11 +1,15 @@
 package com.codenjoy.dojo.pacman.model;
 
-import com.codenjoy.dojo.pacman.services.Events;
-import com.codenjoy.dojo.services.*;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.codenjoy.dojo.pacman.services.Events;
+import com.codenjoy.dojo.services.BoardReader;
+import com.codenjoy.dojo.services.Dice;
+import com.codenjoy.dojo.services.Point;
+import com.codenjoy.dojo.services.PointImpl;
+import com.codenjoy.dojo.services.Tickable;
 
 /**
  * О! Это самое сердце игры - борда, на которой все происходит.
@@ -13,14 +17,12 @@ import java.util.List;
  * Борда реализует интерфейс {@see Tickable} чтобы быть уведомленной о каждом тике игры. Обрати внимание на {Sample#tick()}
  */
 public class Pacman implements Tickable, Field {
-
-    private List<Wall> walls;
+	private List<Wall> walls;
     private List<Cookie> cookie;
-    private List<HollandCookie> hollandCookie;
+    private List<Bomb> bombs;
+    Casper casper;
 
     private List<Player> players;
-    //private List<Ghost> ghosts;
-    private Casper casper;
 
     private final int size;
     private Dice dice;
@@ -29,11 +31,10 @@ public class Pacman implements Tickable, Field {
         this.dice = dice;
         walls = level.getWalls();
         cookie = level.getCookie();
-        hollandCookie = level.getHollandCookie();
         size = level.getSize();
-        casper = level.getCasper();
-        players = new LinkedList<Player>();
-       // ghosts = new LinkedList<Ghost>();
+        players = new LinkedList<Player>();;
+        casper =  new Casper(getFreeRandom());
+        
     }
 
     /**
@@ -46,15 +47,22 @@ public class Pacman implements Tickable, Field {
 
             hero.tick();
             
-
             if (cookie.contains(hero)) {
-                cookie.remove(hero);
+            	cookie.remove(hero);
                 player.event(Events.WIN);
 
             }
         }
+        
        
- 
+        if (!casper.isAlive()) {
+     	Point pos = getFreeRandom();
+
+        	casper = new Casper(pos);
+        	
+        }
+        casper.tick();
+    
 
         for (Player player : players) {
             Hero hero = player.getHero();
@@ -65,7 +73,8 @@ public class Pacman implements Tickable, Field {
         }
     }
 
-    public int size() {
+
+	public int size() {
         return size;
     }
 
@@ -96,17 +105,15 @@ public class Pacman implements Tickable, Field {
     public boolean isFree(int x, int y) {
         Point pt = PointImpl.pt(x, y);
 
-        return  !hollandCookie.contains(pt) &&
-        		!walls.contains(pt) &&
-        		!getHeroes().contains(pt);
+        return 
+                
+                !walls.contains(pt) &&
+                !getHeroes().contains(pt);
     }
+
 
     public List<Cookie> getCookie() {
         return cookie;
-    }
-    
-    public List<HollandCookie> getHollandCookie() {
-        return hollandCookie;
     }
 
     public List<Hero> getHeroes() {
@@ -118,56 +125,52 @@ public class Pacman implements Tickable, Field {
     }
 
     public void newGame(Player player) {
-        if (!players.contains(player) ) {
+        if (!players.contains(player)) {
             players.add(player);
         }
         player.newHero(this);
+        player.newCasper(this);
         
-     
+       
+        
     }
 
-    public void remove(Player player) {
+   public Casper getCasper() {
+      
+       return this.casper;
+	}
+
+	public void remove(Player player) {
         players.remove(player);
     }
 
     public List<Wall> getWalls() {
         return walls;
     }
+   
+
+	public List<Bomb> getBombs() {
+        return bombs;
+    }
 
     public BoardReader reader() {
         return new BoardReader() {
-            private int size = Pacman.this.size;
+            private int size = this.size;
 
             @Override
             public int size() {
-                return size;
+                return Pacman.this.size;
             }
 
             @Override
             public Iterable<? extends Point> elements() {
                 List<Point> result = new LinkedList<Point>();
                 result.addAll(Pacman.this.getWalls());
+                result.add(getCasper());
                 result.addAll(Pacman.this.getHeroes());
-                result.add(Pacman.this.addCasper());
                 result.addAll(Pacman.this.getCookie());
-                result.addAll(Pacman.this.getHollandCookie());
-                
                 return result;
             }
         };
     }
-
-
-	public Point addCasper() {
-		
-		Point pos = PointImpl.pt(1,1);
-		
-		if (cookie.contains(pos)) {
-            cookie.remove(pos);
-            }
-        return casper = new Casper(pos);
-		
-	}
-	
-	
 }

@@ -20,6 +20,7 @@ public class GameRunner implements GameType {
     private final Settings settings;
     private final Level level;
     private Pacman game;
+    private Casper casper;
 
    
     public GameRunner() {
@@ -65,6 +66,12 @@ public class GameRunner implements GameType {
     @Override
     public String name() {
         return "pacman";
+    }
+
+    public void newCasper(Field field) {
+        Point pt = field.getFreeRandom();
+        casper = new Casper(pt);
+        casper.init(field);
     }
 
     @Override

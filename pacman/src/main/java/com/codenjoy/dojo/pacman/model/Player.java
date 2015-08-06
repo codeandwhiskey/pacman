@@ -74,5 +74,11 @@ public class Player {
         hero.init(field);
     }
     
+    public void newCasper(Field field) {
+        Point pt = field.getFreeRandom();
+        casper = new Casper(pt);
+        
+    }
+    
 
 }

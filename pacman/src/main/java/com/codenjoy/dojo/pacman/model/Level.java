@@ -2,6 +2,8 @@ package com.codenjoy.dojo.pacman.model;
 
 import java.util.List;
 
+import com.codenjoy.dojo.pacman.model.Casper;
+
 /**
  * Я вот для простоты и удобства хочу указывать борду в тестовом виде, а реализация этого интерфейса позволяет мне это сделать
  */
@@ -20,5 +22,5 @@ public interface Level {
 	
 	 List<HollandCookie> getHollandCookie();
 
-	Casper getCasper();
+	List<Casper> getCasper(); 
 }

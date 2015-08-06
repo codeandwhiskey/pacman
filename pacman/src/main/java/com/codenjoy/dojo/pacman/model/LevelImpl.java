@@ -1,5 +1,7 @@
 package com.codenjoy.dojo.pacman.model;
 
+import com.codenjoy.dojo.pacman.model.Casper;
+import com.codenjoy.dojo.pacman.model.Elements;
 import com.codenjoy.dojo.services.LengthToXY;
 import com.codenjoy.dojo.services.Point;
 
@@ -69,12 +71,15 @@ public class LevelImpl implements Level {
     }
     
     @Override
-    public Casper getCasper() {
-    	for (Point pt : getPointsOf(Elements.CASPER)) {       
-    		return new Casper(pt);
+	public List<Casper> getCasper() {
+		List<Casper> result = new LinkedList<Casper>();
+
+        for (Point pt : getPointsOf(Elements.CASPER)) {
+            result.add(new Casper(pt));
         }
-        
-        return null;
+
+        return result;
+
     }
 
     private List<Point> getPointsOf(Elements element) {
