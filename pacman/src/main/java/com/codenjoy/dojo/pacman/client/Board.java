@@ -25,6 +25,7 @@ public class Board extends AbstractBoard<Elements> {
         return get(Elements.DEAD_HERO,
                 Elements.HERO).get(0);
     }
+   
     
     public Point getCasperPoint() {
         return (Point) get(Elements.CASPER, Elements.HERO).get(0);

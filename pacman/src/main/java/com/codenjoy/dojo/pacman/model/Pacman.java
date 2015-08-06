@@ -32,7 +32,7 @@ public class Pacman implements Tickable, Field {
         walls = level.getWalls();
         cookie = level.getCookie();
         size = level.getSize();
-        players = new LinkedList<Player>();;
+        players = new LinkedList<Player>();
         casper =  new Casper(getFreeRandom());
         
     }
@@ -42,35 +42,44 @@ public class Pacman implements Tickable, Field {
      */
     @Override
     public void tick() {
+    	
         for (Player player : players) {
             Hero hero = player.getHero();
 
             hero.tick();
+            
+            if (casper.getX() == hero.getX() && casper.getY() == hero.getY()) {
+            	hero.setAlive(false);
+            	
+               }
             
             if (cookie.contains(hero)) {
             	cookie.remove(hero);
                 player.event(Events.WIN);
 
             }
+            
         }
         
        
-        if (!casper.isAlive()) {
+      /*  if (!casper.isAlive()) {
      	Point pos = getFreeRandom();
 
         	casper = new Casper(pos);
         	
-        }
-        casper.tick();
+        }*/
+        
     
 
         for (Player player : players) {
             Hero hero = player.getHero();
-
+           
             if (!hero.isAlive()) {
                 player.event(Events.LOOSE);
             }
         }
+        
+        casper.tick();
     }
 
 
@@ -81,7 +90,8 @@ public class Pacman implements Tickable, Field {
     @Override
     public boolean isBarrier(int x, int y) {
         Point pt = PointImpl.pt(x, y);
-        return x > size - 1 || x < 0 || y < 0 || y > size - 1 || walls.contains(pt) || getHeroes().contains(pt);
+        System.out.println(x > size - 1 || x < 0 || y < 0 || y > size - 1 || walls.contains(pt) || getHeroes().contains(pt));
+        return x > size - 1 || x < 0 || y < 0 || y > size - 1 || walls.contains(pt) || getHeroes().contains(pt) ;
     }
 
     @Override
@@ -106,7 +116,6 @@ public class Pacman implements Tickable, Field {
         Point pt = PointImpl.pt(x, y);
 
         return 
-                
                 !walls.contains(pt) &&
                 !getHeroes().contains(pt);
     }

@@ -10,7 +10,12 @@ public class Hero extends PointImpl implements Joystick, Tickable, State<Element
 
     private Field field;
     private boolean alive;
-    private Direction direction;
+    
+    public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+	private Direction direction;
 
     public Hero(Point xy) {
         super(xy);

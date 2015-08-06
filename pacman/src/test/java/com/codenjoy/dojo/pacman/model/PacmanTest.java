@@ -6,6 +6,7 @@ import com.codenjoy.dojo.services.PrinterFactory;
 import com.codenjoy.dojo.utils.TestUtils;
 import com.codenjoy.dojo.pacman.services.Events;
 import com.codenjoy.dojo.services.Dice;
+import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.EventListener;
 import com.codenjoy.dojo.services.PrinterFactoryImpl;
 
@@ -299,7 +300,7 @@ public class PacmanTest {
                 "☼☼☼☼☼☼☼");
         dice(1,1);
         game.tick();
-        casper.get(0).left();
+        //casper.get(0).left();
         game.tick();
 
         assertE("☼☼☼☼☼☼☼" +
@@ -324,12 +325,8 @@ public class PacmanTest {
         
      
         dice(1,1);
-        game.tick();
         System.out.println(casper);
-        casper.get(0).right();
-        game.tick();
-        System.out.println(casper + "dfs");
-        
+        game.tick();    
       
 
         assertE("☼☼☼☼☼☼☼" +

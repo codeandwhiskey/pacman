@@ -1,14 +1,17 @@
 package com.codenjoy.dojo.pacman.model;
 
-import java.util.List;
-
-import com.codenjoy.dojo.services.*;
+import com.codenjoy.dojo.client.Direction;
+import com.codenjoy.dojo.services.Dice;
+import com.codenjoy.dojo.services.Point;
+import com.codenjoy.dojo.services.PointImpl;
+import com.codenjoy.dojo.services.State;
+import com.codenjoy.dojo.services.Tickable;
 /*
 /**
  * Это реализация привидения.
  * 
  */
-public class Casper extends PointImpl implements Joystick, Tickable, State<Elements, Player>{
+public class Casper extends PointImpl implements Tickable, State<Elements, Player>{
 	
 	private Field field;
     private boolean alive;
@@ -16,11 +19,11 @@ public class Casper extends PointImpl implements Joystick, Tickable, State<Eleme
 
 	public Casper(Point xy) {
         super(xy);
-        direction = null;
+		direction = Direction.DOWN;
         alive = true;
     }
 
-    public Casper(int x, int y) {
+    public Casper(int x, int y) {	
 		super(x, y);
 	}
 
@@ -37,65 +40,32 @@ public class Casper extends PointImpl implements Joystick, Tickable, State<Eleme
     public Elements state(Player player, Object... alsoAtPoint) {
         return Elements.CASPER;
     }
-
-
-
-	@Override
-	public void tick() {
-		if (!alive) return;
-
-        if (direction != null) {
-            int newX = direction.changeX(x);
-            int newY = direction.changeY(y);
-
-            if (!field.isBarrier(newX, newY)) {
-                move(newX, newY);
-            }
-        }
-        direction = null;
-		
-	}
-	
-	@Override
-    public void down() {
-        if (!alive) return;
-        direction = Direction.DOWN;
-        
-    }
-
-    @Override
-    public void up() {
-        if (!alive) return;
-
-        direction = Direction.UP;
-    }
-
-    @Override
-    public void left() {
-        if (!alive) return;
-
-        direction = Direction.LEFT;
-    }
-
-    @Override
-    public void right() {
-        if (!alive) return;
-
-        direction = Direction.RIGHT;
-    }
-
     
 	@Override
-	public void act(int... p) {
-		// TODO Auto-generated method stub
+	public void tick() {		
+		//if (!alive) return;
+
+        //if (direction != null) {
+            int newX = direction.changeX(x);
+            int newY = direction.changeY(y);
+            
+           if (!field.isBarrier(newX, newY)) {
+            	
+               move(newX, newY);
+           } else {
+        	 direction =  Direction.STOP;
+           }
+       //}
+      //direction = null;
 		
 	}
 
 
 	public boolean isAlive() {
 		// TODO Auto-generated method stub
-		return false;
+		return alive;
 	}
+	
 
   
     }
