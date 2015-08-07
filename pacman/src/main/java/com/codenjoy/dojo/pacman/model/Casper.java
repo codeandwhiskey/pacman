@@ -19,7 +19,7 @@ public class Casper extends PointImpl implements Tickable, State<Elements, Playe
 
 	public Casper(Point xy) {
         super(xy);
-		direction = Direction.DOWN;
+		direction = null;
         alive = true;
     }
 
@@ -43,22 +43,31 @@ public class Casper extends PointImpl implements Tickable, State<Elements, Playe
     
 	@Override
 	public void tick() {		
+		int i = (int)(Math.random()*5);
+		if(i == 1){
+			direction = Direction.UP;
+		} else if(i == 2){
+			direction = Direction.DOWN;
+		} else if(i == 3){
+			direction = Direction.RIGHT;
+		} else if(i == 4){
+			direction = Direction.LEFT;
+		}
 		//if (!alive) return;
-
         //if (direction != null) {
             int newX = direction.changeX(x);
             int newY = direction.changeY(y);
             
-           if (!field.isBarrier(newX, newY)) {
+           //if (!field.isBarrier(newX, newY)) {
             	
                move(newX, newY);
-           } else {
-        	 direction =  Direction.STOP;
-           }
-       //}
+          // } else {
+        	// direction =  Direction.STOP;
+           //}
+       }
       //direction = null;
 		
-	}
+	//}
 
 
 	public boolean isAlive() {
